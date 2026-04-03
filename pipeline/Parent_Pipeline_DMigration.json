@@ -27,7 +27,8 @@
 					"dataset": {
 						"referenceName": "DS_SQLSERVER_TBLLKUP",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -47,6 +48,7 @@
 						"value": "@activity('LKUP_SQLTABLE_TBLLKUP').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "EXE_SQL_INCREMENT",
@@ -63,10 +65,22 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"TableSchema": "@item().TableSchema",
-									"TableName": "@item().TableName",
-									"WatermarkColumn": "@item().WatermarkColumn",
-									"LastLoadValue": "@item().LastLoadValue"
+									"TableSchema": {
+										"value": "@item().TableSchema",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "@item().TableName",
+										"type": "Expression"
+									},
+									"WatermarkColumn": {
+										"value": "@item().WatermarkColumn",
+										"type": "Expression"
+									},
+									"LastLoadValue": {
+										"value": "@item().LastLoadValue",
+										"type": "Expression"
+									}
 								}
 							}
 						}
