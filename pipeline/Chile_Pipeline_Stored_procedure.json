@@ -1,0 +1,65 @@
+{
+	"name": "Chile_Pipeline_Stored_procedure",
+	"properties": {
+		"activities": [
+			{
+				"name": "SP_UPDATE_WATERMRK",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UpdateWatermark]",
+					"storedProcedureParameters": {
+						"TableName": {
+							"value": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TableSchema": {
+							"value": {
+								"value": "@pipeline().parameters.TableSchema",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"WatermarkColumn": {
+							"value": {
+								"value": "@pipeline().parameters.WatermarkColumn",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_ONPREM_SQLSERVER_DW",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"TableSchema": {
+				"type": "string",
+				"defaultValue": "@pipeline().parameters.TableSchema"
+			},
+			"TableName": {
+				"type": "string",
+				"defaultValue": "@pipeline().parameters.TableName"
+			},
+			"WatermarkColumn": {
+				"type": "string",
+				"defaultValue": "@pipeline().parameters.WatermarkColumn"
+			}
+		},
+		"annotations": []
+	}
+}
